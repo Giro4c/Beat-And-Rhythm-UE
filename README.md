@@ -32,5 +32,8 @@ For now, only one interval can be used for the rhythm subsystem. The followed in
 
 ### Later
 
-No other mechanics defined yet. Waiting for the base beat and rhythm subsystems to be finished before brainstorming for upgrades and other similar systems.
+- **Changing Tracks in a Level:** Being able to change the current track for the background music and keeping the sync with the BPM. Track currently only loops with itself -> add read settings like in stream playlists: Looping, Play Next, Random. Maybe add a transition sound effect if track wasn't finished when the switch was triggered.
+
+- **Track Partition System:** Literally a track's music sheet but without the tone. Kinda like other click-based rhythm games like Osu.  
+*MAYBE ?? Really not sure how to do that without having to use level sequencer. Don't want to make a level per track -> more like a music sheet asset so a track can have more than one (difficulty levels why not?).*  
 
