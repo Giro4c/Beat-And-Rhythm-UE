@@ -60,21 +60,21 @@ void UInterval::CheckForNewBeat(double intervalTime, float bpm)
 		intervalTime += offsetLength;
 	}
 
-	UE_LOG(LogBeat, Log, TEXT("UIntervals::CheckForNewBeat - Current Interval: %f"), intervalTime);
+	// UE_LOG(LogBeat, Log, TEXT("UIntervals::CheckForNewBeat - Current Interval: %f"), intervalTime);
             
 	if (static_cast<int>(intervalTime) != lastInterval)
 	{
 		lastInterval = static_cast<int>(intervalTime);
-		UE_LOG(LogBeat, Log, TEXT("UIntervals::CheckForNewBeat - Interval Triggered: Steps: %f, OffsetSteps: %f, FixedOffsetBpm: %s, OffsetBpm: %d"), data.Steps, data.OffsetSteps, data.bFixedOffsetBpm ? TEXT("True") : TEXT("False"), data.OffsetBpm);
+		// UE_LOG(LogBeat, Log, TEXT("UIntervals::CheckForNewBeat - Interval Triggered: Steps: %f, OffsetSteps: %f, FixedOffsetBpm: %s, OffsetBpm: %d"), data.Steps, data.OffsetSteps, data.bFixedOffsetBpm ? TEXT("True") : TEXT("False"), data.OffsetBpm);
 		onTrigger.Broadcast();
 	}
 }
 
-void UInterval::CheckForNewBeat_Playback(double playbackTime, double trackLength, float bpm)
+void UInterval::CheckForNewBeat_Playback(double playbackTime, float bpm)
 {
 	// const double intervalLength = trackLength / (60.0 / (bpm * data.Steps));
 	const double intervalLength = (60.0 / (bpm * data.Steps));
-	UE_LOG(LogBeat, Log, TEXT("UIntervals::CheckForNewBeat_Playback - Interval Length: %f"), intervalLength);
+	// UE_LOG(LogBeat, Log, TEXT("UIntervals::CheckForNewBeat_Playback - Interval Length: %f"), intervalLength);
 	
 	double currentInterval = playbackTime / intervalLength;
 	if (data.bUseOffset)
@@ -84,12 +84,12 @@ void UInterval::CheckForNewBeat_Playback(double playbackTime, double trackLength
 		currentInterval += offsetLength;
 	}
 
-	UE_LOG(LogBeat, Log, TEXT("UIntervals::CheckForNewBeat_Playback - Current Interval: %f"), currentInterval);
+	// UE_LOG(LogBeat, Log, TEXT("UIntervals::CheckForNewBeat_Playback - Current Interval: %f"), currentInterval);
             
 	if (static_cast<int>(currentInterval) != lastInterval)
 	{
 		lastInterval = static_cast<int>(currentInterval);
-		UE_LOG(LogBeat, Log, TEXT("UIntervals::CheckForNewBeat_Playback - Interval Triggered: Steps: %f, OffsetSteps: %f, FixedOffsetBpm: %s, OffsetBpm: %d"), data.Steps, data.OffsetSteps, data.bFixedOffsetBpm ? TEXT("True") : TEXT("False"), data.OffsetBpm);
+		// UE_LOG(LogBeat, Log, TEXT("UIntervals::CheckForNewBeat_Playback - Interval Triggered: Steps: %f, OffsetSteps: %f, FixedOffsetBpm: %s, OffsetBpm: %d"), data.Steps, data.OffsetSteps, data.bFixedOffsetBpm ? TEXT("True") : TEXT("False"), data.OffsetBpm);
 		onTrigger.Broadcast();
 	}
 }

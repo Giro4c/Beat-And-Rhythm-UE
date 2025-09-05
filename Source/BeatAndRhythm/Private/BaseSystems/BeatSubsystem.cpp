@@ -186,7 +186,7 @@ void UBeatSubsystem::OnWorldBeginPlay(UWorld& InWorld)
 
 void UBeatSubsystem::Tick(float DeltaTime)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Ticking BeatSubsystem"));
+	// UE_LOG(LogTemp, Warning, TEXT("Ticking BeatSubsystem"));
 	
 	if (CachedWorld == nullptr) return;
 	
@@ -194,8 +194,8 @@ void UBeatSubsystem::Tick(float DeltaTime)
 	const double playbackTime = CachedWorld->GetAudioTimeSeconds() - PlayStartTime; 
 	for (UInterval* interval : beatIntervals)
 	{
-		const double trackLength = currentTrack->GetAudioFile()->GetDuration();
-		interval->CheckForNewBeat_Playback(playbackTime, trackLength, currentTrack->GetBpm());
+		// const double trackLength = currentTrack->GetAudioFile()->GetDuration();
+		interval->CheckForNewBeat_Playback(playbackTime, currentTrack->GetBpm());
 		// const double intervalLength = (60.0 / (currentTrack->GetBpm() * interval->GetSteps()));
 		// double intervalTime = playbackTime / intervalLength;
 		// interval->CheckForNewBeat(intervalTime, currentTrack->GetBpm());

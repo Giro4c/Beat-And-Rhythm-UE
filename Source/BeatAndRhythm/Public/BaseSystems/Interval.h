@@ -121,7 +121,7 @@ public:
 	void CheckForNewBeat(double intervalTime, float bpm);
 
 	UFUNCTION(BlueprintCallable, Category = "Intervals")
-	void CheckForNewBeat_Playback(double playbackTime, double trackLength, float bpm);
+	void CheckForNewBeat_Playback(double playbackTime, float bpm);
 
 	UFUNCTION(BlueprintCallable, Category = "Getters")
 	float GetSteps() const { return data.Steps; }
