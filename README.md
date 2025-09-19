@@ -28,12 +28,41 @@ The system follows a single beat pattern that can be defined in the world settin
 
 ### Incoming
 
-
+- **Plugin Version:** Make the Beat & Rhythm system a plugin so it can be used in any project. Also allow for multiple version to coexist (one for simple rhythm, one for complex music-sheet-like rhythm, etc).
 
 ### Later
 
-- **Changing Tracks in a Level:** Being able to change the current track for the background music and keeping the sync with the BPM. Track currently only loops with itself -> add read settings like in stream playlists: Looping, Play Next, Random. Maybe add a transition sound effect if track wasn't finished when the switch was triggered.
+- **Changing Tracks in a Level at Runtime:** Being able to change the current track for the background music and keeping the sync with the BPM. Maybe add a transition sound effect if track wasn't finished when the switch was triggered.
+
+- **In Rhythm Subsystem :** Improve the audio play system (especially for looping) so as to only play the next audio on the next beat of the current track despite it not playing anymore. This will avoid having abnormal gap between beats when the track is looping but stopped after its last beat.  
+  
 
 - **Track Partition System:** Literally a track's music sheet but without the tone. Kinda like other click-based rhythm games like Osu.  
-*MAYBE ?? Really not sure how to do that without having to use level sequencer. Don't want to make a level per track -> more like a music sheet asset so a track can have more than one (difficulty levels why not?).*  
+    _Bellow are two possible versions i brainstormed for the system._
 
+_Track Partition System V1:_  
+
+A track partition is made of segments whose count is defined by the maximum steps for an interval (fastest rhythm possible). Each segment can have a beat or not (1 or 0).  
+When a track with a partition is played in a world, the beat subsystem will use the partition to trigger beats only when there is one in the current segment. The rhythm subsystem will then use those beats to validate actions.  
+
+The partition created for a track is editable in a segmented line-like editor made with IMGUI. The user can choose the linked track, the maximum number of steps, save the partition where they want and click on the segments to add or remove a beat. When saved, the partition is serialized in a text or binary file that can be loaded into a partition class instance thanks to a utility function dedicated to serialization/deserialization.
+This is an example of a partition file without the track reference (maybe store sheet without track for easy reuse ?):  
+```
+4
+101010001010
+```
+Since the maximum steps will be a float (e.g 4 bytes = 32 bits) and each segment will be a bit (1 or 0), the partition could be stored in a binary file but not sure how to get the content of a binary file as a bit array in C++ (maybe read byte per byte and convert each byte to its bit representation ? Might need an additional value to define the exact number of segments since last byte may actually contain less than 8 segments).
+
+_Track Partition System V2:_  
+
+A track partition is made of segments that each have a beat or not (1 or 0) and a step value (float). The step value will define the length of the segment. This will allow for true musical rhythm like what can be found on music sheets and the system can also be expanded to support extended beat (e.g long notes in a rhythm game).  
+When a track with a partition is played in a world, the beat subsystem will use the partition to trigger beats only when there is one in the current segment. The rhythm subsystem will then use those beats to validate actions.  
+
+The partition created for a track is editable in a segmented line-like editor made with IMGUI. The user can choose the linked track, the scale for the grid, save the partition where they want and click on the segments to add, remove a beat or change their length. When saved, the partition is serialized in a text or binary file that can be loaded into a partition class instance thanks to a utility function dedicated to serialization/deserialization. 
+This is an example of a partition file without the track reference (maybe store sheet without track for easy reuse ?):  
+```
+4 (scale)
+1 0.5 1 0.5 1 2 1 0.5 1 0.5 (no space)
+```
+Since the scale will be a float (e.g 4 bytes = 32 bits) and each segment will be a bit (1 or 0) followed by a float (4 bytes = 32 bits), the partition could be stored in a binary file but not sure how to get the content of a binary file as a bit array in C++ since bytes are not possible (the presence of a bit between every float prevents the use of byte array).  
+If the number of segments is known then maybe all floats can be serialized one after another and the bits can be stored after with the special treatment of the last byte (if the number of segments is not a multiple of 8).  
