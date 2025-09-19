@@ -58,6 +58,9 @@ private:
 
 	UFUNCTION()
 	void SyncToBeatSubsystem();
+
+	UFUNCTION()
+	void ApplySettings();
 	
 public:
 	

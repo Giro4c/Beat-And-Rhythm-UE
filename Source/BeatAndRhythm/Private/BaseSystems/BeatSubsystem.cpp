@@ -125,30 +125,42 @@ void UBeatSubsystem::OnAudioTrackFinished()
 {
 	if (CachedSettings)
 	{
-		if (CachedSettings->bLoopModeEnabled)
+		switch (CachedSettings->tracksPlayMode)
 		{
-			// Restart the current track
-			PlayBackgroundMusic(currentTrack->GetAudioFile());
-		}
-		else
-		{
-			int currentIndex = CachedSettings->worldTracks.IndexOfByKey(currentTrack);
-			if (currentIndex != INDEX_NONE && currentIndex < CachedSettings->worldTracks.Num() - 1)
-			{
-				// Move to the next track in the list
-				currentTrack = CachedSettings->worldTracks[currentIndex + 1];
+			case EPlayMode::Looping:
+				// Restart the current track
 				PlayBackgroundMusic(currentTrack->GetAudioFile());
-			}
-			else
-			{
-				// No more tracks to play, return to the first track
-				currentTrack = CachedSettings->worldTracks.Num() > 0 ? CachedSettings->worldTracks[0] : nullptr;
-				if (currentTrack)
+				break;
+			case EPlayMode::Random:
+				// Select a random track from the list
+				if (CachedSettings->worldTracks.Num() > 0)
 				{
+					int randomIndex = FMath::RandRange(0, CachedSettings->worldTracks.Num() - 1);
+					currentTrack = CachedSettings->worldTracks[randomIndex];
 					PlayBackgroundMusic(currentTrack->GetAudioFile());
 				}
-			}
+				break;
+			case EPlayMode::Sequential:
+				// Move to the next track in the list or loop back to the first track
+				const int currentIndex = CachedSettings->worldTracks.IndexOfByKey(currentTrack);
+				if (currentIndex != INDEX_NONE && currentIndex < CachedSettings->worldTracks.Num() - 1)
+				{
+					// Move to the next track in the list
+					currentTrack = CachedSettings->worldTracks[currentIndex + 1];
+					PlayBackgroundMusic(currentTrack->GetAudioFile());
+				}
+				else
+				{
+					// No more tracks to play, return to the first track
+					currentTrack = CachedSettings->worldTracks.Num() > 0 ? CachedSettings->worldTracks[0] : nullptr;
+					if (currentTrack)
+					{
+						PlayBackgroundMusic(currentTrack->GetAudioFile());
+					}
+				}	
+				break;
 		}
+		
 	}
 }
 
@@ -194,7 +206,6 @@ void UBeatSubsystem::Tick(float DeltaTime)
 	const double playbackTime = CachedWorld->GetAudioTimeSeconds() - PlayStartTime; 
 	for (UInterval* interval : beatIntervals)
 	{
-		// const double trackLength = currentTrack->GetAudioFile()->GetDuration();
 		interval->CheckForNewBeat_Playback(playbackTime, currentTrack->GetBpm());
 		// const double intervalLength = (60.0 / (currentTrack->GetBpm() * interval->GetSteps()));
 		// double intervalTime = playbackTime / intervalLength;

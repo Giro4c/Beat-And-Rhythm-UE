@@ -15,7 +15,7 @@ For example, with a track at 60 BPM in a world with two intervals at 1 and 2 ste
 
 #### Rhythm Subsystem
 
-A subsystem linked to the beat subsystem. It allows to detect whether an action was performed on the beat. Actions don't need to be frame prefect, includes a time margin (before and after the beat). 
+A subsystem linked to the beat subsystem. It allows to detect whether an action was performed on the beat. Actions don't need to be frame prefect, includes a time margin (before and after the beat) editable in the global settings "Beat & Rhythm". 
 
 There is also a streak system: 
 - Streak is increased (+1) if the action is on the beat. (Within the margin)
@@ -24,11 +24,11 @@ There is also a streak system:
 - Streak is reset to 0 if an action was already performed for the current beat. (No double actions)
 - Streak is NOT reset to 0 if no action was performed for the current beat. (Missing a beat is not a mistake)
 
-For now, only one interval can be used for the rhythm subsystem. The followed interval and the time margin are both hard coded the class for now.
+The system follows a single beat pattern that can be defined in the world settings. The rhythm subsystem will use the beat events from that interval to validate actions if it exists otherwise it will use the default one.  
 
 ### Incoming
 
-- **In Rhythm Subsystem :** (Update) Allow to change the followed interval and the time margin at runtime and with editor settings (engine & world).
+
 
 ### Later
 

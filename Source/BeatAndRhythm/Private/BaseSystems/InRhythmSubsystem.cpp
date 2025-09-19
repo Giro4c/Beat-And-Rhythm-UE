@@ -3,7 +3,9 @@
 
 #include "BaseSystems/InRhythmSubsystem.h"
 
+#include "BaseSystems\BeatGlobalSettings.h"
 #include "BaseSystems/BeatSubsystem.h"
+#include "BaseSystems/BeatWorldSettings.h"
 
 DEFINE_LOG_CATEGORY(LogRhythm);
 
@@ -59,26 +61,61 @@ void UInRhythmSubsystem::Deinitialize()
 
 void UInRhythmSubsystem::SyncToBeatSubsystem()
 {
+	UWorld& World = GetWorldRef();
 	// Synchronize beats with BeatSubsystem
-	if (UBeatSubsystem* BeatSubsystem = GetWorldRef().GetSubsystem<UBeatSubsystem>())
+	if (UBeatSubsystem* BeatSubsystem = World.GetSubsystem<UBeatSubsystem>())
 	{
-		UInterval* DefaultInterval = BeatSubsystem->GetInterval(FIntervalData::GetDefault());
-		if (DefaultInterval)
+		UInterval* FollowedInterval;
+		
+		ABeatWorldSettings* WorldSettings = Cast<ABeatWorldSettings>(World.GetWorldSettings());
+		if (WorldSettings)
+		{
+			// Get the interval to follow from the world settings
+			FollowedInterval = BeatSubsystem->GetInterval(WorldSettings->rhythmInterval);
+			if (FollowedInterval == nullptr)
+			{
+				UE_LOG(LogRhythm, Error, TEXT("Interval from WorldSettings not found in BeatSubsystem!"));
+				FollowedInterval = BeatSubsystem->GetInterval(FIntervalData::GetDefault());
+			}
+		}
+		else
+		{
+			// Get the default interval if the world settings is not of the correct type
+			FollowedInterval = BeatSubsystem->GetInterval(FIntervalData::GetDefault());
+			UE_LOG(LogRhythm, Error, TEXT("WorldSettings is not of type ABeatRhythmWorldSettings! Cannot chose an interval to follow. Reverting to default one."));
+		}
+		
+		// Check that we have a valid interval to follow. Gets the default one if beat subsystem didn't have it.
+		if (FollowedInterval != nullptr)
 		{
 			// Get the beat event from the default interval
-			DefaultInterval->onTrigger.AddDynamic(this, &UInRhythmSubsystem::BeatDetected);
+			FollowedInterval->onTrigger.AddDynamic(this, &UInRhythmSubsystem::BeatDetected);
 			UE_LOG(LogRhythm, Warning, TEXT("Synchronized with BeatSubsystem"));
 		}
 		else
 		{
-			UE_LOG(LogRhythm, Error, TEXT("Default Interval not found in BeatSubsystem! Cannot synchronize with beats."));
+			UE_LOG(LogRhythm, Error, TEXT("Rhythm Interval not found in BeatSubsystem! Cannot synchronize with beats."));
 		}
+		
 		// Unbind from the OnBeginPlay event to avoid multiple bindings
 		BeatSubsystem->OnBeginPlay.RemoveDynamic(this, &UInRhythmSubsystem::SyncToBeatSubsystem);
 	}
 	else
 	{
 		UE_LOG(LogRhythm, Error, TEXT("BeatSubsystem not found! Cannot synchronize with beats."));
+	}
+}
+
+void UInRhythmSubsystem::ApplySettings()
+{
+	if (const UBeatAndRhythmSettings* Settings = GetDefault<UBeatAndRhythmSettings>())
+	{
+		TimingMargin = Settings->DefaultTimingMargin;
+		UE_LOG(LogRhythm, Warning, TEXT("Applied Settings: TimingMargin = %f"), TimingMargin);
+	}
+	else
+	{
+		UE_LOG(LogRhythm, Error, TEXT("Failed to get BeatAndRhythmSettings! Using default values."));
 	}
 }
 
