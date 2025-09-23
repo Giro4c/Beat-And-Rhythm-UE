@@ -1,8 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
-#include "BaseSystems/Interval.h"
-#include "BaseSystems/BeatSubsystem.h"
+#include "Interval.h"
 
 bool FIntervalData::operator==(const FIntervalData& other) const
 {

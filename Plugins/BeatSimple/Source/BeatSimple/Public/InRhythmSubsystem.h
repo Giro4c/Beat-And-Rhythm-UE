@@ -14,7 +14,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnStreakUpdateDelegate, int, NewStr
  * 
  */
 UCLASS()
-class BEATANDRHYTHM_API UInRhythmSubsystem : public UWorldSubsystem/*, public FTickableGameObject*/
+class BEATSIMPLE_API UInRhythmSubsystem : public UWorldSubsystem/*, public FTickableGameObject*/
 {
 	GENERATED_BODY()
 

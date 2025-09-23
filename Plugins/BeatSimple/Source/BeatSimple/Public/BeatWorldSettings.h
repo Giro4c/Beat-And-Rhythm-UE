@@ -20,7 +20,7 @@ class UTrackData;
  * 
  */
 UCLASS()
-class BEATANDRHYTHM_API ABeatWorldSettings : public AWorldSettings
+class BEATSIMPLE_API ABeatWorldSettings : public AWorldSettings
 {
 	GENERATED_BODY()
 

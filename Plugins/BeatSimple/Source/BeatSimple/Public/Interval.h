@@ -100,7 +100,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnIntervalTriggeredDelegate, FInter
  * 
  */
 UCLASS(Blueprintable)
-class BEATANDRHYTHM_API UInterval : public UObject
+class BEATSIMPLE_API UInterval : public UObject
 {
 	GENERATED_BODY()
 

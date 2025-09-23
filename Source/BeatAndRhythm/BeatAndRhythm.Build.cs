@@ -15,7 +15,7 @@ public class BeatAndRhythm : ModuleRules
 			"Engine", 
 			"InputCore", 
 			"EnhancedInput",
-			"DeveloperSettings"
+			"BeatSimple"
 		});
 	}
 }

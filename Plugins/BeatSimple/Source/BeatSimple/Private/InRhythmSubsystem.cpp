@@ -1,11 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "BaseSystems/InRhythmSubsystem.h"
+#include "InRhythmSubsystem.h"
 
-#include "BaseSystems\BeatGlobalSettings.h"
-#include "BaseSystems/BeatSubsystem.h"
-#include "BaseSystems/BeatWorldSettings.h"
+#include "BeatGlobalSettings.h"
+#include "BeatSubsystem.h"
+#include "BeatWorldSettings.h"
 
 DEFINE_LOG_CATEGORY(LogRhythm);
 

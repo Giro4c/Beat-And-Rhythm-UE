@@ -1,0 +1,24 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.2",
+	"FriendlyName": "BeatSimple",
+	"Description": "A simple beat subsystem that includes a system to check whether an action was in the rhythm or not.",
+	"Category": "Other",
+	"CreatedBy": "Giro4c",
+	"CreatedByURL": "",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "BeatSimple",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	]
+}

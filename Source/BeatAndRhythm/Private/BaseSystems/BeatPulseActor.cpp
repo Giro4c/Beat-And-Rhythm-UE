@@ -3,7 +3,7 @@
 
 #include "BaseSystems/BeatPulseActor.h"
 
-#include "BaseSystems/BeatSubsystem.h"
+#include "BeatSubsystem.h"
 #include "BaseSystems/PulseComponent.h"
 
 

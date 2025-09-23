@@ -6,7 +6,7 @@
 #include "TrackData.generated.h"
 
 UCLASS(Blueprintable)
-class BEATANDRHYTHM_API UTrackData : public UDataAsset
+class BEATSIMPLE_API UTrackData : public UDataAsset
 {
 	GENERATED_BODY()
 

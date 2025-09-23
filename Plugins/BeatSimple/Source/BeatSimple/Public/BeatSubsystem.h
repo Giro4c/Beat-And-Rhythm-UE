@@ -19,7 +19,7 @@ class UInterval;
  * 
  */
 UCLASS()
-class BEATANDRHYTHM_API UBeatSubsystem : public UWorldSubsystem, public FTickableGameObject
+class BEATSIMPLE_API UBeatSubsystem : public UWorldSubsystem, public FTickableGameObject
 {
 	GENERATED_BODY()
 

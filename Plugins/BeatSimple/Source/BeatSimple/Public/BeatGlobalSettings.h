@@ -10,7 +10,7 @@
  * 
  */
 UCLASS(Config=BeatAndRhythm, defaultconfig, meta = (DisplayName="Beat & Rhythm Settings"))
-class BEATANDRHYTHM_API UBeatAndRhythmSettings : public UDeveloperSettings
+class BEATSIMPLE_API UBeatAndRhythmSettings : public UDeveloperSettings
 {
 	GENERATED_BODY()
 

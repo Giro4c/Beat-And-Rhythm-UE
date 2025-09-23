@@ -1,13 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "BaseSystems/BeatSubsystem.h"
+#include "BeatSubsystem.h"
 
 #include "Components/AudioComponent.h"
 #include "Sound/AmbientSound.h"
 #include "Engine/AssetManager.h"
 #include "Engine/StreamableManager.h"
-#include "BaseSystems/BeatWorldSettings.h"
+#include "BeatWorldSettings.h"
 
 DEFINE_LOG_CATEGORY(LogBeat);
 
