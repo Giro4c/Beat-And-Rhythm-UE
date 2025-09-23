@@ -1,5 +1,5 @@
-# Beat And Rhythm UE
-An Unreal project where i experiment with beat and rhythm gameplay mechanics synced with audio.
+# Beat Simple
+A plugin where i make simple beat and rhythm systems synced with audio.
 
 ## Mecanics
 
@@ -28,7 +28,7 @@ The system follows a single beat pattern that can be defined in the world settin
 
 ### Incoming
 
-- **Plugin Version:** Make the Beat & Rhythm system a plugin so it can be used in any project. Also allow for multiple version to coexist (one for simple rhythm, one for complex music-sheet-like rhythm, etc).
+
 
 ### Later
 
